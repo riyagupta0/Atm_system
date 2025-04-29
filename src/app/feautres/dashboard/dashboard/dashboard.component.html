@@ -1,0 +1,26 @@
+<div class="dashboard-container">
+    <h2>Welcome to Dashboard</h2>
+
+    <div class="user-details">
+        <h3>User Details</h3>
+        <div class="detail-grid">
+            <div><strong>Name:</strong> {{ user?.fullName }}</div>
+            <div><strong>Card Number:</strong> {{ user?.cardNumber }}</div>
+            <div><strong>Email:</strong> {{ user?.email }}</div>
+            <div><strong>Contact:</strong> {{ user?.contact }}</div>
+            <div><strong>Date of Birth:</strong> {{ user?.dob }}</div>
+            <div><strong>Account Type:</strong> {{ user?.accountType }}</div>
+        </div>
+    </div>
+
+    <div class="buttons-grid">
+        <button routerLink="withdraw">Withdraw</button>
+        <button routerLink="credit">Credit</button>
+        <button routerLink="check-balance">Check Balance</button>
+        <button routerLink="change-pin">Change PIN</button>
+        <button routerLink="transfer-funds">Transfer Funds</button>
+        <button routerLink="statement">Statement</button>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

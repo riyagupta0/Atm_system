@@ -1,0 +1,49 @@
+.transfer-container {
+    max-width: 400px;
+    margin: 60px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 20px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #138496;
+}
+
+.error-message,
+.success-message {
+    color: red;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+}

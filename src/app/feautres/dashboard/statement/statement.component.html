@@ -1,0 +1,19 @@
+<h2>Transaction History</h2>
+<table *ngIf="transactions.length > 0">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date</th>
+    </tr>
+    <tr *ngFor="let t of transactions">
+        <td>{{t.type}}</td>
+        <td>₹{{t.amount}}</td>
+        <td>{{t.date }}</td>
+    </tr>
+</table>
+<div *ngIf="transactions.length === 0">
+    <p>No transactions found.</p>
+</div>
+
+
+<button (click)="download()" *ngIf="transactions.length > 0">Download Receipt</button>

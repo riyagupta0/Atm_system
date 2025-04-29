@@ -1,0 +1,52 @@
+<div class="register-container">
+    <h2>Register</h2>
+
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" [(ngModel)]="fullName" placeholder="Enter your full name">
+    </div>
+
+    <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" [(ngModel)]="cardNumber" placeholder="Enter card number">
+    </div>
+
+    <div class="form-group">
+        <label for="pin">PIN</label>
+        <input type="password" id="pin" [(ngModel)]="pin" placeholder="Enter PIN">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" [(ngModel)]="email" placeholder="Enter your email">
+    </div>
+
+    <div class="form-group">
+        <label for="contact">Contact Number</label>
+        <input type="text" id="contact" [(ngModel)]="contact" placeholder="Enter contact number">
+    </div>
+
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" [(ngModel)]="dob">
+    </div>
+
+    <div class="form-group">
+        <label for="initialDeposit">Initial Deposit</label>
+        <input type="number" id="initialDeposit" [(ngModel)]="initialDeposit" placeholder="Enter initial deposit">
+    </div>
+
+    <div class="form-group">
+        <label for="accountType">Account Type</label>
+        <select id="accountType" [(ngModel)]="accountType">
+            <option value="Savings">Savings</option>
+            <option value="Current">Current</option>
+        </select>
+    </div>
+
+    <button (click)="register()">Register</button>
+
+    <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

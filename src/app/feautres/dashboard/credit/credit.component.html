@@ -1,0 +1,7 @@
+<div class="transaction-page">
+    <h2>Credit Amount</h2>
+    <form (ngSubmit)="onCredit()" #creditForm="ngForm">
+        <input type="number" placeholder="Enter Amount" [(ngModel)]="amount" name="amount" required />
+        <button type="submit" [disabled]="!creditForm.valid">Credit</button>
+    </form>
+</div>
