@@ -3,6 +3,6 @@
     <form (ngSubmit)="onChangePin()" #pinForm="ngForm">
         <input type="password" placeholder="Old PIN" [(ngModel)]="oldPin" name="oldPin" required />
         <input type="password" placeholder="New PIN" [(ngModel)]="newPin" name="newPin" required />
-        <button type="submit" [disabled]="!pinForm.valid">Change PIN</button>
+        <button type="submit">Change PIN</button>
     </form>
 </div>

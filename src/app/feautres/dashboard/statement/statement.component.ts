@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statement',
@@ -12,7 +13,7 @@ export class StatementComponent {
   transactions: any[] = [];
   accountNumber: number = 0;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     const userData = localStorage.getItem('atm-user');
@@ -20,6 +21,9 @@ export class StatementComponent {
       const user = JSON.parse(userData);
       this.accountNumber = user.cardNumber; // fetch user id from localstorage
       this.loadTransactions();
+    } else {
+      alert("Please Login with your card details!");
+      this.router.navigate(['/auth/login']);
     }
   }
   loadTransactions() {
@@ -37,7 +41,7 @@ export class StatementComponent {
   download() {
     let receipt = 'Type\tAmount\tDate\n';
     this.transactions.forEach(t => {
-      receipt += `${t.type}\t₹${t.amount}\t${new Date(t.date).toLocaleString()}\n`;
+      receipt += `${t.id}${t.cardNumber}${t.type}\t₹${t.amount}\t${new Date(t.timestamp).toLocaleString()}\n`;
     });
 
     const blob = new Blob([receipt], { type: 'text/plain' });

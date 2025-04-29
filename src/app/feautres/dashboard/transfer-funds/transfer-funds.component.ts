@@ -25,6 +25,9 @@ export class TransferFundsComponent {
       const user = JSON.parse(userData);
       this.senderAccount = user.cardNumber;
       this.senderBalance = user.initialDeposit;
+    } else {
+      alert("Please Login with your card details!");
+      this.router.navigate(['/auth/login']);
     }
   }
 

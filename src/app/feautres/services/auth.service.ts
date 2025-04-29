@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id?: number;
-  fullName: string;
+  Name: string;
   cardNumber: string;
   pin: string;
   email: string;
@@ -19,7 +20,7 @@ export interface User {
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:8080/atm'; // your backend URL
+  private baseUrl = environment.BASE_URL; // your backend URL
 
   constructor(private http: HttpClient) { }
 
@@ -51,17 +52,17 @@ export class AuthService {
 
   // Transfer Funds
   transferFunds(senderAccount: number, receiverAccount: number, amount: number): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/transfer?senderAccountNumber=${senderAccount}&receiverAccountNumber=${receiverAccount}&amount=${amount}`, {});
+    return this.http.put<User>(`${this.baseUrl}/transfer?senderCardNumber=${senderAccount}&receiverCardNumber=${receiverAccount}&amount=${amount}`, {});
   }
 
   // Check Balance
   checkBalance(accountNumber: number): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/balance/${accountNumber}`);
+    return this.http.get<number>(`${this.baseUrl}/initialDeposit/${accountNumber}`);
   }
 
   // Get last transactions
   getTransactions(userAccount: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/transactions/${userAccount}`);
+    return this.http.get<any[]>(`${this.baseUrl}/transactions/all/${userAccount}`);
   }
 
 }

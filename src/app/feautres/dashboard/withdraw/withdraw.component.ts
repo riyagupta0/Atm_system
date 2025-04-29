@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-withdraw',
-  imports: [FormsModule, NgIf],
+  standalone: true,
+  imports: [FormsModule, NgIf, RouterModule],
   templateUrl: './withdraw.component.html',
-  styleUrl: './withdraw.component.css'
+  styleUrls: ['./withdraw.component.css']
 })
 export class WithdrawComponent {
   amount: number = 0;
@@ -20,6 +21,9 @@ export class WithdrawComponent {
     if (userData) {
       const user = JSON.parse(userData);
       this.balance = user.initialDeposit;
+    } else {
+      alert("Please Login with your card details!")
+      this.router.navigate(['/auth/login']);
     }
   }
 
@@ -44,17 +48,16 @@ export class WithdrawComponent {
           user.initialDeposit -= this.amount;
           localStorage.setItem('atm-user', JSON.stringify(user));
 
+          this.balance -= this.amount;
+
           this.router.navigate(['/dashboard/success'], { queryParams: { message: `₹${this.amount} withdrawn successfully!` } });
         },
         error: (error: any) => {
           // Handle any errors from the API
           console.error(error);
-          this.errorMessage = error.error.message || 'Withdrawal failed. Please try again.';
+          this.errorMessage = (error && error.error && error.error.message) ? error.error.message : 'Withdrawal failed. Please try again.';
         }
       });
     }
   }
-
-
-
 }

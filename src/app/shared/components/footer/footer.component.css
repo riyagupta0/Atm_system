@@ -1,9 +1,24 @@
 .footer {
-    background-color: #1976d2;
-    color: white;
+    background-color: #f7f9fc;
+    border-top: 1px solid #eaeef3;
+    padding: 1rem;
     text-align: center;
-    padding: 0.75rem;
-    position: fixed;
+    font-size: 0.85rem;
+    color: black;
     width: 100%;
-    bottom: 0;
+
+    /* margin-top: auto; */
+    animation: fadeUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

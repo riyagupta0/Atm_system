@@ -1,44 +1,253 @@
+/* Modern Registration Form Styling */
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+body {
+    background-color: #f7f9fc;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+/* Registration container */
 .register-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
     max-width: 500px;
-    margin: 60px auto;
-    padding: 20px;
+    padding: 2rem;
+    margin: 2rem auto;
+    transition: all 0.3s ease;
+}
+
+/* Header styling */
+.register-container h2 {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
-h2 {
-    margin-bottom: 30px;
-}
-
+/* Form group styling */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
-input,
-select {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 0.4rem;
 }
 
-button {
+.form-group input,
+.form-group select {
     width: 100%;
-    padding: 12px;
-    font-size: 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #bbb;
+}
+
+/* Select styling */
+.form-group select {
+    appearance: none;
+    background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z' fill='%23666'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-color: #fff;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #218838;
+/* Date input specific styling */
+input[type="date"] {
+    color: #555;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Number input specific styling
+input[type="number"] {
+    -moz-appearance: textfield;
+} */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background-color: #3a7bc8;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Error message styling */
 .error-message {
-    color: red;
-    margin-top: 20px;
-    font-weight: bold;
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: 4px;
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .register-container {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 6px;
+    }
+
+    .register-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.7rem 0.9rem;
+    }
+
+    button {
+        padding: 0.8rem;
+    }
+}
+
+/* For larger screens - optional two-column layout */
+@media (min-width: 768px) {
+    .register-container {
+        max-width: 650px;
+        padding: 2.5rem;
+    }
+
+    .form-layout {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+    }
+
+    .form-group {
+        flex: 0 0 calc(50% - 20px);
+        margin: 0 10px 1.25rem;
+    }
+
+    /* Button and error message stay full width */
+    button,
+    .error-message {
+        width: calc(100% - 20px);
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+/* Animation for form elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.register-container h2,
+.form-group,
+button,
+.error-message {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.1s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+.form-group:nth-child(5) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(6) {
+    animation-delay: 0.25s;
+}
+
+.form-group:nth-child(7) {
+    animation-delay: 0.3s;
+}
+
+.form-group:nth-child(8) {
+    animation-delay: 0.35s;
+}
+
+.form-group:nth-child(9) {
+    animation-delay: 0.4s;
+}
+
+button {
+    animation-delay: 0.45s;
 }

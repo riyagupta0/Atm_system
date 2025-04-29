@@ -11,7 +11,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  fullName: string = '';
+  Name: string = '';
   cardNumber: string = '';
   pin: string = '';
   email: string = '';
@@ -24,9 +24,9 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   register() {
-    if (this.fullName && this.cardNumber && this.pin && this.email && this.contact && this.dob && this.accountType) {
+    if (this.Name && this.cardNumber && this.pin && this.email && this.contact && this.dob && this.accountType) {
       const newUser = {
-        fullName: this.fullName,
+        Name: this.Name,
         cardNumber: this.cardNumber,
         pin: this.pin,
         email: this.email,

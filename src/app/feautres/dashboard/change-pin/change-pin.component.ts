@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, User } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-change-pin',
@@ -15,20 +15,26 @@ export class ChangePinComponent {
   cardNumber: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+    const userData = localStorage.getItem('atm-user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      const userAccount = user.cardNumber;
+    } else {
+      alert("Please Login with your card details!");
+      this.router.navigate(['/auth/login']);
+    }
+  }
 
   onChangePin(): void {
     if (!this.oldPin || !this.newPin) {
       this.errorMessage = 'Please fill both fields.';
       return;
     }
-
     const userData = localStorage.getItem('atm-user');
     if (userData) {
       const user = JSON.parse(userData);
-      const userAccount = user.cardNumber; // Get user ID from local storage
-
-      // Call backend service to change PIN
+      const userAccount = user.cardNumber;
       this.authService.changePin(userAccount, this.newPin).subscribe({
         next: (response: any) => {
           user.pin = this.newPin;
@@ -40,6 +46,7 @@ export class ChangePinComponent {
           this.errorMessage = error.error.message || 'Failed to change PIN. Please try again.';
         }
       });
+
     }
   }
 }

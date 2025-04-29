@@ -1,14 +1,20 @@
 <h2>Transaction History</h2>
-<table *ngIf="transactions.length > 0">
+<table *ngIf="transactions.length > 0" style="border: 2px solid black;">
     <tr>
+        <th>ID</th>
+        <th>CardNumber</th>
         <th>Type</th>
+
         <th>Amount</th>
-        <th>Date</th>
+        <th>TimeStamp</th>
     </tr>
     <tr *ngFor="let t of transactions">
+        <td>{{t.id}}</td>
+        <td>{{t.cardNumber}}</td>
         <td>{{t.type}}</td>
+
         <td>₹{{t.amount}}</td>
-        <td>{{t.date }}</td>
+        <td>{{t.timestamp }}</td>
     </tr>
 </table>
 <div *ngIf="transactions.length === 0">

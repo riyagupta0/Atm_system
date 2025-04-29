@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-credit',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './credit.component.html',
-  styleUrl: './credit.component.css'
+  styleUrls: ['./credit.component.css']
 })
 export class CreditComponent {
   amount: number = 0;
@@ -20,6 +21,7 @@ export class CreditComponent {
       const user = JSON.parse(userData);
       this.userAccount = user.cardNumber;
     } else {
+      alert("Please Login with your card details!")
       this.router.navigate(['/auth/login']);
     }
   }

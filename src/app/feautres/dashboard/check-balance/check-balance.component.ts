@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-balance',
@@ -11,13 +12,13 @@ export class CheckBalanceComponent implements OnInit {
   balance: number = 0;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('atm-user');
     if (userData) {
       const user = JSON.parse(userData);
-      const userAccount = user.cardNumber; // Fetch user ID from local storage
+      const userAccount = user.cardNumber;
 
       // Call the backend to get the balance using the user's ID
       this.authService.checkBalance(userAccount).subscribe({
@@ -30,7 +31,8 @@ export class CheckBalanceComponent implements OnInit {
         }
       });
     } else {
-      this.errorMessage = 'User not found. Please log in again.';
+      alert("Please Login with your card details!")
+      this.router.navigate(['/auth/login']);
     }
   }
 }
