@@ -9,6 +9,7 @@ To start a local development server, run:
 ```bash
 ng serve
 ```
+## The main server folder is not present in this project currently , but i will update with the backend folder soon
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
