@@ -1,0 +1,25 @@
+.transaction-page p {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    border-left: 5px solid #27ae60;
+}
+
+.transaction-page button:first-of-type {
+    background-color: #3498db;
+}
+
+.transaction-page button:first-of-type:hover {
+    background-color: #2980b9;
+}
+
+.transaction-page button:last-of-type {
+    background-color: #7f8c8d;
+    margin-top: 15px;
+}
+
+.transaction-page button:last-of-type:hover {
+    background-color: #6c7a7a;
+}

@@ -1,19 +1,46 @@
 .balance-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 60px;
+    background-image:
+        linear-gradient(rgba(224, 224, 224, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224, 224, 224, 0.4) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
-h2 {
-    font-size: 28px;
-    margin-bottom: 30px;
+.balance-container h2 {
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #333;
+    position: relative;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.balance-container h2:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #f39c12, #f1c40f);
 }
 
 .balance-card {
-    display: inline-block;
-    padding: 30px 50px;
-    font-size: 26px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #2c3e50;
+    border-left: 5px solid #f39c12;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }

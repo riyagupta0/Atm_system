@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,7 +12,8 @@ import { AuthService } from '../../services/auth.service';
 export class DashboardComponent implements OnInit {
   user: any;
 
-  constructor(private authService: AuthService) { }
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     const userData = localStorage.getItem('atm-user');
@@ -29,6 +30,9 @@ export class DashboardComponent implements OnInit {
           alert('Failed to load user details');
         }
       });
+    } else {
+      alert('please login with card details!');
+      this.router.navigate(['/auth/login'])
     }
   }
 }

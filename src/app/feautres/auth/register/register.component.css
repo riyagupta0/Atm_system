@@ -1,253 +1,126 @@
-/* Modern Registration Form Styling */
-
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', Arial, sans-serif;
-}
-
-body {
-    background-color: #f7f9fc;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-}
-
-/* Registration container */
+/* Register Page Specific Styles */
 .register-container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 500px;
-    padding: 2rem;
-    margin: 2rem auto;
-    transition: all 0.3s ease;
-}
-
-/* Header styling */
-.register-container h2 {
-    color: #333;
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-/* Form group styling */
-.form-group {
-    margin-bottom: 1.25rem;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #666;
-    margin-bottom: 0.4rem;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-}
-
-.form-group input::placeholder {
-    color: #bbb;
-}
-
-/* Select styling */
-.form-group select {
-    appearance: none;
-    background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z' fill='%23666'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.7rem top 50%;
+    position: relative;
+    max-width: 600px;
+    padding: 80px 40px 35px;
     background-color: #fff;
-    cursor: pointer;
+    /* Paper form effect */
+    background-image: linear-gradient(0deg, transparent 23px, #f0f0f0 24px);
+    background-size: 100% 25px;
 }
 
-/* Date input specific styling */
-input[type="date"] {
-    color: #555;
+.register-container h2 {
+    margin-bottom: 40px;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    padding: 0 15px;
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 0.7;
-    cursor: pointer;
+.register-container h2:after {
+    background-color: #e74c3c;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator:hover {
-    opacity: 1;
-}
-
-/* Number input specific styling
-input[type="number"] {
-    -moz-appearance: textfield;
-} */
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Button styling */
-button {
-    width: 100%;
-    padding: 0.85rem;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 0.5rem;
-}
-
-button:hover {
-    background-color: #3a7bc8;
-}
-
-button:active {
-    transform: translateY(1px);
-}
-
-/* Error message styling */
-.error-message {
-    color: #e74c3c;
-    font-size: 0.85rem;
-    margin-top: 1rem;
-    text-align: center;
-    padding: 0.5rem;
-    background-color: rgba(231, 76, 60, 0.1);
-    border-radius: 4px;
-    display: block;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .register-container {
-        margin: 1rem;
-        padding: 1.5rem;
-        border-radius: 6px;
-    }
-
-    .register-container h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1.2rem;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
-    }
-
-    .form-group input,
-    .form-group select {
-        padding: 0.7rem 0.9rem;
-    }
-
-    button {
-        padding: 0.8rem;
-    }
-}
-
-/* For larger screens - optional two-column layout */
+/* Create two columns for form layout on larger screens */
 @media (min-width: 768px) {
-    .register-container {
-        max-width: 650px;
-        padding: 2.5rem;
+    .register-container .form-group {
+        width: 48%;
+        display: inline-block;
+        vertical-align: top;
     }
 
-    .form-layout {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -10px;
-    }
-
-    .form-group {
-        flex: 0 0 calc(50% - 20px);
-        margin: 0 10px 1.25rem;
-    }
-
-    /* Button and error message stay full width */
-    button,
-    .error-message {
-        width: calc(100% - 20px);
-        margin-left: 10px;
-        margin-right: 10px;
+    .register-container .form-group:nth-child(odd) {
+        margin-right: 3%;
     }
 }
 
-/* Animation for form elements */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* KYC Verification Badge */
+.register-container h2:before {
+    content: "KYC";
+    position: absolute;
+    top: -15px;
+    right: -35px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    transform: rotate(15deg);
 }
 
-.register-container h2,
-.form-group,
-button,
-.error-message {
-    animation: fadeIn 0.5s ease-out forwards;
+/* Form Group Styling */
+.register-container .form-group {
+    margin-bottom: 25px;
+    position: relative;
 }
 
-.form-group:nth-child(2) {
-    animation-delay: 0.05s;
+/* Label Styling */
+.register-container label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
 }
 
-.form-group:nth-child(3) {
-    animation-delay: 0.1s;
+/* Input Focus Effect */
+.register-container input:focus,
+.register-container select:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
 }
 
-.form-group:nth-child(4) {
-    animation-delay: 0.15s;
+/* Required Field Indicator */
+.register-container label:after {
+    content: "*";
+    color: #e74c3c;
+    margin-left: 5px;
 }
 
-.form-group:nth-child(5) {
-    animation-delay: 0.2s;
+/* Register Button Styling */
+.register-container button {
+    background-color: #e74c3c;
+    margin-top: 25px;
+    box-shadow: 0 4px 6px rgba(231, 76, 60, 0.2);
 }
 
-.form-group:nth-child(6) {
-    animation-delay: 0.25s;
+.register-container button:hover {
+    background-color: #c0392b;
 }
 
-.form-group:nth-child(7) {
-    animation-delay: 0.3s;
+/* Initial Deposit Field */
+#initialDeposit {
+    position: relative;
+    padding-left: 30px;
 }
 
-.form-group:nth-child(8) {
-    animation-delay: 0.35s;
+#initialDeposit+label:before {
+    content: "$";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
 }
 
-.form-group:nth-child(9) {
-    animation-delay: 0.4s;
+/* Account Type Select Styling */
+#accountType {
+    border: 1px solid #ddd;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
 }
 
-button {
-    animation-delay: 0.45s;
+/* Error Message */
+.register-container .error-message {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 3px solid #e74c3c;
+    padding: 10px;
+    margin-top: 20px;
 }
