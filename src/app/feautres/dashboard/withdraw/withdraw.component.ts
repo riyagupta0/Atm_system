@@ -42,7 +42,8 @@ export class WithdrawComponent {
     if (userData) {
       const user = JSON.parse(userData);
       const userAccount = user.cardNumber;
-      this.authService.withdrawAmount(userAccount, this.amount).subscribe({
+      const userAccountType = user.accountType;
+      this.authService.withdrawAmount(userAccount, this.amount, userAccountType).subscribe({
         next: (message: string) => {
 
           user.initialDeposit -= this.amount;

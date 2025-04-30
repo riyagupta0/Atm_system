@@ -41,8 +41,8 @@ export class AuthService {
   }
 
   // Withdraw Money
-  withdrawAmount(accountNumber: number, amount: number): Observable<string> {
-    return this.http.put<string>(`${this.baseUrl}/withdraw/${accountNumber}?amount=${amount}`, {});
+  withdrawAmount(accountNumber: number, amount: number, accountType: string): Observable<string> {
+    return this.http.put<string>(`${this.baseUrl}/withdraw/${accountNumber}?amount=${amount}?accountType=${accountType}`, {});
   }
 
   // Change PIN
