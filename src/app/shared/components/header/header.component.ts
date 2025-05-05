@@ -20,6 +20,7 @@ export class HeaderComponent {
   }
   logout() {
     localStorage.removeItem('atm-user'); // Remove the user from local storage
+    alert("Logout Success!")
     this.router.navigate(['/auth/login']); // Navigate to login page
   }
 }

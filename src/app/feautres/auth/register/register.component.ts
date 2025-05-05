@@ -26,7 +26,7 @@ export class RegisterComponent {
   register() {
     if (this.Name && this.cardNumber && this.pin && this.email && this.contact && this.dob && this.accountType) {
       const newUser = {
-        Name: this.Name,
+        name: this.Name,
         cardNumber: this.cardNumber,
         pin: this.pin,
         email: this.email,
@@ -44,7 +44,17 @@ export class RegisterComponent {
         },
         error: (error) => {
           console.error('Error registering user:', error);
-          this.errorMessage = 'Failed to register. Please try again.';
+          if (error.status === 400 && error.error) {
+            const messages: string[] = [];
+            for (const key in error.error) {
+              if (error.error.hasOwnProperty(key)) {
+                messages.push(error.error[key]);
+              }
+            }
+            this.errorMessage = messages.join('  ');
+          } else {
+            this.errorMessage = 'Card Number already exists in the system';
+          }
         }
       });
     } else {

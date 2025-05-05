@@ -4,5 +4,9 @@
         <input type="password" placeholder="Old PIN" [(ngModel)]="oldPin" name="oldPin" required />
         <input type="password" placeholder="New PIN" [(ngModel)]="newPin" name="newPin" required />
         <button type="submit">Change PIN</button>
+
     </form>
+    <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
 </div>

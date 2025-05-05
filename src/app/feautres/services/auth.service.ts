@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 export interface User {
   id?: number;
-  Name: string;
+  name: string;
   cardNumber: string;
   pin: string;
   email: string;
@@ -20,7 +20,7 @@ export interface User {
 })
 export class AuthService {
 
-  private baseUrl = environment.BASE_URL; // your backend URL
+  private baseUrl = environment.BASE_URL;
 
   constructor(private http: HttpClient) { }
 
@@ -42,12 +42,18 @@ export class AuthService {
 
   // Withdraw Money
   withdrawAmount(accountNumber: number, amount: number, accountType: string): Observable<string> {
-    return this.http.put<string>(`${this.baseUrl}/withdraw/${accountNumber}?amount=${amount}?accountType=${accountType}`, {});
+    return this.http.put<string>(`${this.baseUrl}/withdraw/${accountNumber}`, null, {
+      params: {
+        amount: amount.toString(),
+        accountType: accountType
+      },
+      responseType: 'text' as 'json'
+    });
   }
 
   // Change PIN
   changePin(accountNumber: number, newPin: string): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/changepin/${accountNumber}?newPin=${newPin}`, {});
+    return this.http.put<User>(`${this.baseUrl}/changePin/${accountNumber}?newPin=${newPin}`, {});
   }
 
   // Transfer Funds
