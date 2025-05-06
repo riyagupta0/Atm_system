@@ -45,7 +45,6 @@ export class ChangePinComponent {
           error: (error: any) => {
             console.error(error);
             this.errorMessage = error.error.pin || 'Failed to change PIN. Please try again.';
-
           }
         });
       }
