@@ -23,8 +23,6 @@ body {
     min-height: calc(100vh - 120px);
     background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
 }
-
-
 .header {
     background-color: #2d2d2d;
     color: white;
@@ -34,7 +32,6 @@ body {
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
-
 .logo {
     font-size: 24px;
     font-weight: bold;
