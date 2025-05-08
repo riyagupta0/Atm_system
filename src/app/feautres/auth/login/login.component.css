@@ -1,6 +1,4 @@
-/* Login Page Specific Styles */
 .login-container {
-    /* ATM Card Slot Design */
     position: relative;
     padding-top: 60px;
 }
@@ -71,7 +69,6 @@
     background: rgba(255, 255, 255, 0.3);
 }
 
-/* Register Link */
 .login-container a {
     font-size: 14px;
     color: #555;
@@ -82,7 +79,6 @@
     color: #27ae60;
 }
 
-/* Keypad Effect */
 @media (min-width: 768px) {
     .login-container:after {
         content: "";

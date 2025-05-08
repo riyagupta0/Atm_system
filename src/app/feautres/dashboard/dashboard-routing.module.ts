@@ -8,16 +8,23 @@ import { ChangePinComponent } from './change-pin/change-pin.component';
 import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
 import { StatementComponent } from './statement/statement.component';
 import { SuccessComponent } from './success/success.component';
+import { authGuard } from '../auth/guard/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'withdraw', component: WithdrawComponent },
-  { path: 'credit', component: CreditComponent },
-  { path: 'check-balance', component: CheckBalanceComponent },
-  { path: 'change-pin', component: ChangePinComponent },
-  { path: 'transfer-funds', component: TransferFundsComponent },
-  { path: 'statement', component: StatementComponent },
-  { path: 'success', component: SuccessComponent },
+  {
+    path: '',
+    canActivate: [authGuard], // Apply guard to all children
+    children: [
+      { path: '', component: DashboardComponent },
+      { path: 'withdraw', component: WithdrawComponent },
+      { path: 'credit', component: CreditComponent },
+      { path: 'check-balance', component: CheckBalanceComponent },
+      { path: 'change-pin', component: ChangePinComponent },
+      { path: 'transfer-funds', component: TransferFundsComponent },
+      { path: 'statement', component: StatementComponent },
+      { path: 'success', component: SuccessComponent },
+    ]
+  }
 ];
 
 @NgModule({

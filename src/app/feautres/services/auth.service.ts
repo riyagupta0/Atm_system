@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import * as jwt_decode from 'jwt-decode';
 
 export interface User {
   id?: number;
@@ -13,6 +14,10 @@ export interface User {
   dob: string;
   initialDeposit: number;
   accountType: string;
+}
+interface JWTPayload {
+  exp: number;
+  [key: string]: any; // to allow other claims
 }
 
 @Injectable({
@@ -71,4 +76,37 @@ export class AuthService {
     return this.http.get<any[]>(`${this.baseUrl}/transactions/all/${userAccount}`);
   }
 
+  //helper function to read the expiration time from Token 
+  isTokenExpired(token: string): boolean {
+    try {
+      const decoded = jwt_decode.jwtDecode<JWTPayload>(token);
+      if (!decoded.exp) return true; // No exp field = invalid
+      const expiryTime = decoded.exp * 1000;
+      return Date.now() > expiryTime;
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return true; // Treat as expired if token can't be decoded
+    }
+  }
+
+  //login using jwt
+  login(credentials: { cardNumber: string, pin: string }) {
+    return this.http.post(`${this.baseUrl}/login`, credentials);
+  }
+
+  //store the jwt token on local storage 
+  storeToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  //retrieve the token
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  //remove the token from local storage
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('atm-user');
+  }
 }

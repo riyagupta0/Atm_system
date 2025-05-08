@@ -11,29 +11,33 @@ import { NgIf } from '@angular/common';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  Name: string = '';
-  cardNumber: string = '';
-  pin: string = '';
-  email: string = '';
-  contact: string = '';
-  dob: string = '';
-  initialDeposit: number = 0;
-  accountType: string = '';
+  registerObj = {
+    Name:  '',
+    cardNumber:  '',
+    pin:  '',
+    email:  '',
+    contact:  '',
+    dob:  '',
+    initialDeposit: 0,
+    accountType:  '',
+    
+  }
   errorMessage: string = '';
+  
 
   constructor(private authService: AuthService, private router: Router) { }
 
   register() {
-    if (this.Name && this.cardNumber && this.pin && this.email && this.contact && this.dob && this.accountType) {
+    if (this.registerObj.Name && this.registerObj.cardNumber && this.registerObj.pin && this.registerObj.email && this.registerObj.contact && this.registerObj.dob && this.registerObj.accountType) {
       const newUser = {
-        name: this.Name,
-        cardNumber: this.cardNumber,
-        pin: this.pin,
-        email: this.email,
-        contact: this.contact,
-        dob: this.dob,
-        initialDeposit: this.initialDeposit,
-        accountType: this.accountType
+        name: this.registerObj.Name,
+        cardNumber: this.registerObj.cardNumber,
+        pin: this.registerObj.pin,
+        email: this.registerObj.email,
+        contact: this.registerObj.contact,
+        dob: this.registerObj.dob,
+        initialDeposit: this.registerObj.initialDeposit,
+        accountType: this.registerObj.accountType
       };
       this.authService.createUser(newUser).subscribe({
         next: (response) => {

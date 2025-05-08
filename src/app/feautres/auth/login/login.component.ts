@@ -21,18 +21,18 @@ export class LoginComponent {
     this.router.navigate(['/auth/register']);
   }
   login() {
-    this.authService.getUserByAccountNumber(this.cardNumber).subscribe({
-      next: (user: User) => {
-        if (user.pin === this.pin) {
-          // Save user data in local storage if needed
-          localStorage.setItem('atm-user', JSON.stringify(user));
+    this.authService.login({ cardNumber: this.cardNumber, pin: this.pin }).subscribe({
+      next: (res: any) => {
+        if (res && res.token) {
+          localStorage.setItem('atm-user', JSON.stringify(res.user));
+          this.authService.storeToken(res.token);
           this.router.navigate(['/dashboard']);
         } else {
-          this.errorMessage = 'Invalid card number or PIN.';
+          this.errorMessage = 'Invalid response from server.';
         }
       },
       error: () => {
-        this.errorMessage = 'User not found. Please check the card number.';
+        this.errorMessage = 'Invalid card number or PIN.';
       }
     });
   }
