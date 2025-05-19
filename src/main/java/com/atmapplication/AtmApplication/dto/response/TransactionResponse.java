@@ -20,5 +20,18 @@ public class TransactionResponse {
     private String description;
     private String sourceCardNumber;
     private String destinationCardNumber;
+    private String sourceAccountNumber;
+    private String destinationAccountNumber;
 
+    // Constructor for backward compatibility
+    public TransactionResponse(Long id, BigDecimal amount, ETransactionType type, LocalDateTime transactionDate,
+                               String description, String sourceCardNumber, String destinationAccountNumber) {
+        this.id = id;
+        this.amount = amount;
+        this.type = type;
+        this.transactionDate = transactionDate;
+        this.description = description;
+        this.sourceCardNumber = sourceCardNumber;
+        this.destinationAccountNumber = destinationAccountNumber;
+    }
 }

@@ -41,6 +41,10 @@ public class Transaction {
     private String sourceCardNumber;
     private String destinationCardNumber;
 
+    // Adding account number fields for transfers
+    private String sourceAccountNumber;
+    private String destinationAccountNumber;
+
     @PrePersist
     protected void onCreate() {
         transactionDate = LocalDateTime.now();

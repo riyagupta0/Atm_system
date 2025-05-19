@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
+public class UserListResponse {
     private Long id;
     private String accountNumber;
     private String cardNumber;

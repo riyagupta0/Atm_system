@@ -14,9 +14,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawRequest {
-    @NotBlank(message = "Card number is required")
-    @Pattern(regexp = "^[0-9]{16}$", message = "Card number must be 16 digits")
-    private String cardNumber;
+    @NotBlank(message = "Account number is required")
+    private String accountNumber;
 
     @NotBlank(message = "PIN is required")
     @Pattern(regexp = "^[0-9]{4}$", message = "PIN must be 4 digits")

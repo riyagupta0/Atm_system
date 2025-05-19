@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangePinRequest {
-    @NotBlank(message = "Card number is required")
-    @Pattern(regexp = "^[0-9]{16}$", message = "Card number must be 16 digits")
-    private String cardNumber;
+    @NotBlank(message = "Account number is required")
+    private String accountNumber;
 
     @NotBlank(message = "Current PIN is required")
     @Pattern(regexp = "^[0-9]{4}$", message = "Current PIN must be 4 digits")

@@ -6,7 +6,8 @@ import com.atmapplication.AtmApplication.dto.request.TransferRequest;
 import com.atmapplication.AtmApplication.dto.request.WithdrawRequest;
 import com.atmapplication.AtmApplication.dto.response.MessageResponse;
 import com.atmapplication.AtmApplication.dto.response.TransactionResponse;
-import com.atmapplication.AtmApplication.dto.response.UserResponse;
+//import com.atmapplication.AtmApplication.dto.response.UserListResponse;
+//import com.atmapplication.AtmApplication.dto.response.UserResponse;
 import com.atmapplication.AtmApplication.Service.AtmService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200",  allowCredentials = "true")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/atm")
 public class AtmController {
     @Autowired
     private AtmService atmService;
 
-
-    @GetMapping("/balance/{cardNumber}")
-    @PreAuthorize("authentication.principal.username == #cardNumber")
-    public ResponseEntity<UserResponse> getBalance(@PathVariable String cardNumber) {
-        return ResponseEntity.ok(atmService.getBalance(cardNumber));
+    @GetMapping("/balance/{accountNumber}")
+    @PreAuthorize("authentication.principal.username == #accountNumber")
+    public ResponseEntity<UserResponse> getBalance(@PathVariable String accountNumber) {
+        return ResponseEntity.ok(atmService.getBalance(accountNumber));
     }
 
     @PostMapping("/deposit")
@@ -35,7 +35,7 @@ public class AtmController {
         return ResponseEntity.ok(atmService.deposit(depositRequest));
     }
 
-    @PostMapping ("/withdraw")
+    @PostMapping("/withdraw")
     public ResponseEntity<MessageResponse> withdraw(@Valid @RequestBody WithdrawRequest withdrawRequest) {
         return ResponseEntity.ok(atmService.withdraw(withdrawRequest));
     }
@@ -45,19 +45,20 @@ public class AtmController {
         return ResponseEntity.ok(atmService.transfer(transferRequest));
     }
 
-    @GetMapping("/transactions/{cardNumber}")
-    @PreAuthorize("authentication.principal.username == #cardNumber")
-    public ResponseEntity<List<TransactionResponse>> getTransactionHistory(@PathVariable String cardNumber) {
-        return ResponseEntity.ok(atmService.getTransactionHistory(cardNumber));
+    @GetMapping("/transactions/{accountNumber}")
+    @PreAuthorize("authentication.principal.username == #accountNumber")
+    public ResponseEntity<List<TransactionResponse>> getTransactionHistory(@PathVariable String accountNumber) {
+        return ResponseEntity.ok(atmService.getTransactionHistory(accountNumber));
     }
+
     @PostMapping("/change-pin")
     public ResponseEntity<MessageResponse> changePin(@Valid @RequestBody ChangePinRequest changePinRequest) {
         return ResponseEntity.ok(atmService.changePin(changePinRequest));
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        return ResponseEntity.ok(atmService.getAllUsers());
-    }
-
+//    @GetMapping("/users")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    public ResponseEntity<List<UserListResponse>> getAllUsers() {
+//        return ResponseEntity.ok(atmService.getAllUsers());
+//    }
 }

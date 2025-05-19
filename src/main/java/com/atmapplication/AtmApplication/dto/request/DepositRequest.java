@@ -14,9 +14,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepositRequest {
-    @NotBlank(message = "Card number is required")
-    @Pattern(regexp = "^[0-9]{16}$", message = "Card number must be 16 digits")
-    private String cardNumber;
+    @NotBlank(message = "Account number is required")
+    private String accountNumber;
 
     @NotNull(message = "Amount is required")
     @DecimalMin(value = "1.0", message = "Amount must be at least 1")

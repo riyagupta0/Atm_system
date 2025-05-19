@@ -6,17 +6,17 @@ import com.atmapplication.AtmApplication.dto.request.WithdrawRequest;
 import com.atmapplication.AtmApplication.dto.response.MessageResponse;
 import com.atmapplication.AtmApplication.dto.response.TransactionResponse;
 import com.atmapplication.AtmApplication.dto.response.UserResponse;
+import com.atmapplication.AtmApplication.dto.response.UserListResponse;
 import com.atmapplication.AtmApplication.dto.request.ChangePinRequest;
 
 import java.util.List;
 
 public interface AtmService {
-    UserResponse getBalance(String cardNumber);
+    UserResponse getBalance(String accountNumber);
     MessageResponse deposit(DepositRequest depositRequest);
     MessageResponse withdraw(WithdrawRequest withdrawRequest);
     MessageResponse transfer(TransferRequest transferRequest);
-    List<TransactionResponse> getTransactionHistory(String cardNumber);
+    List<TransactionResponse> getTransactionHistory(String accountNumber);
     MessageResponse changePin(ChangePinRequest changePinRequest);
-    List<UserResponse> getAllUsers();
-
+    List<UserListResponse> getAllUsers();
 }

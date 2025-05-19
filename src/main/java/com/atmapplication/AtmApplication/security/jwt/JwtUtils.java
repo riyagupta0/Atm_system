@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class JwtUtils {
@@ -21,6 +23,9 @@ public class JwtUtils {
 
     @Value("${app.jwt.expirationMs}")
     private int jwtExpirationMs;
+
+    // Set to store invalidated tokens
+    private Set<String> invalidatedTokens = new HashSet<>();
 
     public String generateJwtToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
@@ -48,6 +53,11 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String authToken) {
         try {
+            // Check if token is invalidated (logged out)
+            if (invalidatedTokens.contains(authToken)) {
+                logger.error("JWT token is invalidated (logged out)");
+                return false;
+            }
             Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
@@ -61,5 +71,8 @@ public class JwtUtils {
         }
 
         return false;
+    }
+    public void invalidateToken(String token) {
+        invalidatedTokens.add(token);
     }
 }
