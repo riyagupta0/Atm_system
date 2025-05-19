@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import * as jwt_decode from 'jwt-decode';
 
+
 export interface User {
   id?: number;
   name: string;
@@ -12,8 +13,10 @@ export interface User {
   email: string;
   contact: string;
   dob: string;
-  initialDeposit: number;
   accountType: string;
+  initialDeposit: number;
+  accountNumber: number;
+  message: String;
 }
 interface JWTPayload {
   exp: number;
@@ -25,55 +28,56 @@ interface JWTPayload {
 })
 export class AuthService {
 
-  private baseUrl = environment.BASE_URL;
+  private AuthUrl = environment.AUTH_URL;
+  private AtmUrl = environment.ATM_URL;
 
   constructor(private http: HttpClient) { }
 
-
   // API call to create user (Sign Up)
-  createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/users`, user);
+  createUser(userData: any): Observable<User> {
+    console.log('Payload sent to backend:', userData);
+    return this.http.post<User>(`${this.AuthUrl}/register`, userData);
   }
-
-  // Get User by Account Number
-  getUserByAccountNumber(accountNumber: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/users/${accountNumber}`);
+  //Login with jwt authentication
+  login(credentials: { accountNumber: string, pin: string }) {
+    console.log('Payload sent to backend:', credentials);
+    return this.http.post(`${this.AuthUrl}/login`, credentials);
   }
 
   // Credit Money
-  creditAmount(accountNumber: number, amount: number): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/credit/${accountNumber}?amount=${amount}`, {});
+  creditAmount(credentials:  { accountNumber: String,  amount: number }): Observable<User> {
+    return this.http.post<User>(`${this.AtmUrl}/deposit`, credentials, {
+      responseType: 'json',
+    });
   }
 
   // Withdraw Money
-  withdrawAmount(accountNumber: number, amount: number, accountType: string): Observable<string> {
-    return this.http.put<string>(`${this.baseUrl}/withdraw/${accountNumber}`, null, {
-      params: {
-        amount: amount.toString(),
-        accountType: accountType
-      },
-      responseType: 'text' as 'json'
+  withdrawAmount(credentials:  { accountNumber: String, pin: String, amount: number }): Observable<any> {
+    return this.http.post(`${this.AtmUrl}/withdraw`, credentials, {
+      responseType: 'json'
     });
   }
 
   // Change PIN
-  changePin(accountNumber: number, newPin: string): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/changePin/${accountNumber}?newPin=${newPin}`, {});
+  changePin(credentials: {accountNumber: number, currentPin: string,  newPin: string, confirmPin: string}): Observable<User> {
+    return this.http.post<User>(`${this.AtmUrl}/change-pin`, 
+      credentials
+    );
   }
 
   // Transfer Funds
-  transferFunds(senderAccount: number, receiverAccount: number, amount: number): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/transfer?senderCardNumber=${senderAccount}&receiverCardNumber=${receiverAccount}&amount=${amount}`, {});
+  transferFunds(credentials: {sourceAccountNumber: string,  sourceCardNumber: string, pin:  string, destinationAccountNumber: string, amount: number}): Observable<User> {
+    return this.http.post<User>(`${this.AtmUrl}/transfer`, credentials );
   }
 
   // Check Balance
   checkBalance(accountNumber: number): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/initialDeposit/${accountNumber}`);
+    return this.http.get<number>(`${this.AtmUrl}/balance/${accountNumber}`);
   }
 
   // Get last transactions
   getTransactions(userAccount: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/transactions/all/${userAccount}`);
+    return this.http.get<any[]>(`${this.AtmUrl}/transactions/${userAccount}`);
   }
 
   //helper function to read the expiration time from Token 
@@ -89,11 +93,8 @@ export class AuthService {
     }
   }
 
-  //login using jwt
-  login(credentials: { cardNumber: string, pin: string }) {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
-  }
-
+ 
+  
   //store the jwt token on local storage 
   storeToken(token: string) {
     localStorage.setItem('token', token);
@@ -103,10 +104,13 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
-  //remove the token from local storage
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('atm-user');
-  }
+ 
+  logout(token: string): Observable<any> {
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+  localStorage.removeItem('atm-user');
+  localStorage.removeItem('token');
+  return this.http.post(`${this.AtmUrl}/logout`, {}, { headers });
+}
 }

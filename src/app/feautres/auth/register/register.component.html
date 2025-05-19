@@ -3,7 +3,7 @@
 
     <div class="form-group">
         <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" [(ngModel)]="registerObj.Name" placeholder="Enter your full name">
+        <input type="text" id="fullName" [(ngModel)]="registerObj.name" placeholder="Enter your full name">
     </div>
 
     <div class="form-group">
@@ -28,19 +28,19 @@
 
     <div class="form-group">
         <label for="dob">Date of Birth</label>
-        <input type="date" id="dob" [(ngModel)]="registerObj.dob">
+        <input type="date" id="dob" [(ngModel)]="registerObj.dateOfBirth">
     </div>
 
     <div class="form-group">
         <label for="initialDeposit">Initial Deposit</label>
-        <input type="number" id="initialDeposit" [(ngModel)]="registerObj.initialDeposit" placeholder="Enter initial deposit">
+        <input type="number" id="initialDeposit" [(ngModel)]="registerObj.balance" placeholder="Enter initial deposit">
     </div>
 
     <div class="form-group">
         <label for="accountType">Account Type</label>
         <select id="accountType" [(ngModel)]="registerObj.accountType">
-            <option value="savings">Savings</option>
-            <option value="current">Current</option>
+            <option value="SAVINGS">Savings</option>
+            <option value="CURRENT">Current</option>
         </select>
     </div>
 

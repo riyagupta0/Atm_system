@@ -12,39 +12,44 @@ import { NgIf } from '@angular/common';
 })
 export class RegisterComponent {
   registerObj = {
-    Name:  '',
+    name:  '',
     cardNumber:  '',
     pin:  '',
     email:  '',
     contact:  '',
-    dob:  '',
-    initialDeposit: 0,
-    accountType:  '',
+    dateOfBirth:  '',
+   accountType: '',
+    balance: 0
     
   }
   errorMessage: string = '';
   
 
   constructor(private authService: AuthService, private router: Router) { }
-
   register() {
-    if (this.registerObj.Name && this.registerObj.cardNumber && this.registerObj.pin && this.registerObj.email && this.registerObj.contact && this.registerObj.dob && this.registerObj.accountType) {
+    
       const newUser = {
-        name: this.registerObj.Name,
+        name: this.registerObj.name,
         cardNumber: this.registerObj.cardNumber,
         pin: this.registerObj.pin,
         email: this.registerObj.email,
         contact: this.registerObj.contact,
-        dob: this.registerObj.dob,
-        initialDeposit: this.registerObj.initialDeposit,
-        accountType: this.registerObj.accountType
+        dob: this.registerObj.dateOfBirth,
+        initialDeposit: this.registerObj.balance,
+        accountType: this.registerObj.accountType,        
       };
       this.authService.createUser(newUser).subscribe({
         next: (response) => {
+          const accountNumber = response?.accountNumber;
+          const message = response?.message || 'Registered successfully!';
           console.log('User registered successfully:', response);
-          alert("KYC Verified Successfully!");
-          localStorage.setItem('atm-user', JSON.stringify(newUser));
-          this.router.navigate(['/login']);
+          
+          if (accountNumber) {
+            alert(`${message} Your Account Number is ${accountNumber}`);
+            this.router.navigate(['/login']);
+          } else {
+            alert('Registration successful, but no account number received.');
+          }
         },
         error: (error) => {
           console.error('Error registering user:', error);
@@ -61,8 +66,6 @@ export class RegisterComponent {
           }
         }
       });
-    } else {
-      this.errorMessage = 'Please fill all the fields correctly.';
-    }
+   
   }
 }

@@ -2,6 +2,6 @@
     <div class="logo">ATM Management System</div>
     <nav class="nav-links">
         <a (click)="dashboard()">Dashboard</a>
-        <a (click)="logout()" class="logout-link">Logout</a>
+        <a *ngIf="isLoggedIn" (click)="logout()" class="logout-link">Logout</a>
     </nav>
 </header>

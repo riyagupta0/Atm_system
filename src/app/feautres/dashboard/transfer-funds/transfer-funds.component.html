@@ -2,8 +2,8 @@
     <h2>Transfer Funds</h2>
 
     <div class="form-group">
-        <label for="receiverCardNumber">Receiver's Card Number:</label>
-        <input type="text" id="receiverCardNumber" [(ngModel)]="receiverAccount"
+        <label for="receiverCardNumber">Receiver's Account Number:</label>
+        <input type="text" id="receiverCardNumber" [(ngModel)]="destinationAccountNumber"
             placeholder="Enter receiver card number">
     </div>
 
@@ -12,6 +12,10 @@
         <input type="number" id="amount" [(ngModel)]="amount" placeholder="Enter amount">
     </div>
 
+    <div class="form-group">
+        <label for="pin">Pin:</label>
+        <input type="string" id="pin" [(ngModel)]="pin" placeholder="Enter Your Pin">
+    </div>
     <button (click)="transferFunds()">Transfer</button>
 
     <div class="error-message" *ngIf="errorMessage">

@@ -16,10 +16,9 @@ export class StatementComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    const userData = localStorage.getItem('atm-user');
+    const userData = JSON.parse(localStorage.getItem('atm-user') || '{}');
     if (userData) {
-      const user = JSON.parse(userData);
-      this.accountNumber = user.cardNumber; // fetch user id from localstorage
+      this.accountNumber = userData.accountNumber; 
       this.loadTransactions();
     } else {
       alert("Please Login with your card details!");
@@ -39,9 +38,9 @@ export class StatementComponent {
   }
 
   download() {
-    let receipt = 'Type\tAmount\tDate\n';
+    let receipt = 'Type\tAmount\tType\tDate\tDescription\n';
     this.transactions.forEach(t => {
-      receipt += `${t.id}${t.cardNumber}${t.type}\t₹${t.amount}\t${new Date(t.timestamp).toLocaleString()}\n`;
+      receipt += `${t.id}\t₹${t.amount}\t${t.type}\t${t.transactionDate}${t.description}\t\n`;
     });
 
     const blob = new Blob([receipt], { type: 'text/plain' });

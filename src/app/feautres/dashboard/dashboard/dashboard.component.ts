@@ -19,20 +19,10 @@ export class DashboardComponent implements OnInit {
     const userData = localStorage.getItem('atm-user');
     if (userData) {
       const localUser = JSON.parse(userData);
-      const accountNumber = localUser.cardNumber;
-
-      this.authService.getUserByAccountNumber(accountNumber).subscribe({
-        next: (data) => {
-          this.user = data;
-        },
-        error: (err) => {
-          console.error(err);
-          alert('Failed to load user details');
-        }
-      });
+      this.user = localUser;
     } else {
       alert('please login with card details!');
-      this.router.navigate(['/auth/login'])
+      this.router.navigate(['/login'])
     }
   }
 }

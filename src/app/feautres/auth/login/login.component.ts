@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  cardNumber: string = '';
+  AccountNumber: string = '';
   pin: string = '';
   errorMessage: string = '';
 
@@ -21,10 +21,11 @@ export class LoginComponent {
     this.router.navigate(['/auth/register']);
   }
   login() {
-    this.authService.login({ cardNumber: this.cardNumber, pin: this.pin }).subscribe({
+    this.authService.login({ accountNumber: this.AccountNumber, pin: this.pin }).subscribe({
       next: (res: any) => {
         if (res && res.token) {
-          localStorage.setItem('atm-user', JSON.stringify(res.user));
+          console.log(res);
+          localStorage.setItem('atm-user', JSON.stringify(res));
           this.authService.storeToken(res.token);
           this.router.navigate(['/dashboard']);
         } else {

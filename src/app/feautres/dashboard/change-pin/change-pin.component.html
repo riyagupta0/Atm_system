@@ -1,8 +1,10 @@
 <div class="transaction-page">
     <h2>Change PIN</h2>
     <form (ngSubmit)="onChangePin()" #pinForm="ngForm">
-        <input type="password" placeholder="Old PIN" [(ngModel)]="oldPin" name="oldPin" required />
+        <input type="password" placeholder="Current PIN" [(ngModel)]="oldPin" name="oldPin" required />
         <input type="password" placeholder="New PIN" [(ngModel)]="newPin" name="newPin" required />
+        <input type="password" placeholder="Confirm new PIN" [(ngModel)]="ConfirmnewPin" name="ConfirmnewPin" required />
+
         <button type="submit">Change PIN</button>
 
     </form>

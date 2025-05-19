@@ -2,19 +2,18 @@
 <table *ngIf="transactions.length > 0" style="border: 2px solid black;">
     <tr>
         <th>ID</th>
-        <th>CardNumber</th>
-        <th>Type</th>
-
         <th>Amount</th>
-        <th>TimeStamp</th>
+        <th>Type</th>
+        <th>Transaction Date</th>
+        <th>Description</th>
+
     </tr>
     <tr *ngFor="let t of transactions">
         <td>{{t.id}}</td>
-        <td>{{t.cardNumber}}</td>
-        <td>{{t.type}}</td>
-
         <td>₹{{t.amount}}</td>
-        <td>{{t.timestamp }}</td>
+        <td>{{t.type}}</td>
+        <td>{{t.transactionDate}}</td>
+        <td>{{t.description}}</td>
     </tr>
 </table>
 <div *ngIf="transactions.length === 0">

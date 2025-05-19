@@ -13,7 +13,8 @@ import { NgIf } from '@angular/common';
 export class ChangePinComponent {
   oldPin: string = '';
   newPin: string = '';
-  cardNumber: string = '';
+  ConfirmnewPin: string = '';
+  accountNumber: string = '';
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -23,23 +24,20 @@ export class ChangePinComponent {
       this.errorMessage = 'Please fill both fields.';
       return;
     }
-    const userData = localStorage.getItem('atm-user');
+    const userData = JSON.parse(localStorage.getItem('atm-user')|| '{}');
     if (userData) {
-      const user = JSON.parse(userData);
-
-      if (this.oldPin !== user.pin) {
-        this.errorMessage = " Incorrect old Pin";
+     
+      const data = {
+        accountNumber : userData.accountNumber,
+        currentPin: this.oldPin,
+        newPin: this.newPin,
+        confirmPin : this.ConfirmnewPin
       }
-      else if (this.oldPin === this.newPin) {
-        this.errorMessage = "The new pin must be different from your old pin."
-      }
-      else {
-        const userAccount = user.cardNumber;
-        this.authService.changePin(userAccount, this.newPin).subscribe({
+        
+        this.authService.changePin(data).subscribe({
           next: (response: any) => {
-            user.pin = this.newPin;
-            localStorage.setItem('atm-user', JSON.stringify(user));
             alert('PIN changed successfully!');
+            console.log(response);
             this.router.navigate(['/dashboard']);
           },
           error: (error: any) => {
@@ -51,5 +49,5 @@ export class ChangePinComponent {
 
 
     }
-  }
+  
 }

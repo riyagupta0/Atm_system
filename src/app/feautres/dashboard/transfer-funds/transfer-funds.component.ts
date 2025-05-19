@@ -12,48 +12,41 @@ import { NgIf } from '@angular/common';
 })
 export class TransferFundsComponent {
 
+  sourceAccountNumber: string ='';
+  sourceCardNumber: string = '';
+  pin: string = '';
   amount: number = 0;
-  receiverAccount: string = '';
-  senderAccount: number = 0;
-  senderBalance: number = 0;
+  destinationAccountNumber: string = '';
+  senderAccountNumber: number = 0;
+  
   errorMessage: string = '';
   successMessage: string = '';
 
+  userData : any = {};
+
   constructor(private router: Router, private authService: AuthService) {
-    const userData = localStorage.getItem('atm-user');
-    if (userData) {
-      const user = JSON.parse(userData);
-      this.senderAccount = user.cardNumber;
-      this.senderBalance = user.initialDeposit;
-    } else {
-      alert("Please Login with your card details!");
-      this.router.navigate(['/auth/login']);
-    }
+    this.userData = JSON.parse(localStorage.getItem('atm-user') || '{}');
+    
   }
 
   transferFunds() {
-    this.errorMessage = '';
-    this.successMessage = '';
-
-    if (this.amount <= 0 || this.receiverAccount === '') {
+    if (this.amount <= 0 || this.destinationAccountNumber === '') {
       this.errorMessage = 'Please enter a valid amount and receiver card number.';
       return;
     }
 
-    if (this.amount > this.senderBalance) {
-      this.errorMessage = 'Insufficient balance!';
-      return;
+    const data = {
+      sourceAccountNumber: this.userData?.accountNumber,
+      sourceCardNumber: this.userData.cardNumber,
+      pin: this.pin,
+      destinationAccountNumber: this.destinationAccountNumber,
+      amount: this.amount,
     }
+   
 
-
-
-
-    const receiverAccount = parseInt(this.receiverAccount);
-
-    this.authService.transferFunds(this.senderAccount, receiverAccount, this.amount).subscribe({
-      next: (updatedUser) => {
-        localStorage.setItem('atm-user', JSON.stringify(updatedUser)); // update local data
-        this.successMessage = `₹${this.amount} transferred successfully to card ${this.receiverAccount}`;
+    this.authService.transferFunds(data).subscribe({
+      next: (res: any) => {
+        this.successMessage = res.message;
         this.router.navigate(['/dashboard/success'], { queryParams: { message: this.successMessage } });
       },
       error: (err) => {

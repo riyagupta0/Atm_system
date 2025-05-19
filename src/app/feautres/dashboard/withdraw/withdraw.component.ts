@@ -12,19 +12,18 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./withdraw.component.css']
 })
 export class WithdrawComponent {
+  accountNumber : string = '';
   amount: number = 0;
-  balance: number = 0;
+  pin : number = 0;
+
   errorMessage: string = '';
 
   constructor(private router: Router, private authService: AuthService) {
     const userData = localStorage.getItem('atm-user');
-    if (userData) {
-      const user = JSON.parse(userData);
-      this.balance = user.initialDeposit;
-    } else {
+    if (!userData) {
       alert("Please Login with your card details!")
-      this.router.navigate(['/auth/login']);
-    }
+      this.router.navigate(['/login']); 
+    } 
   }
 
   withdrawMoney() {
@@ -33,24 +32,17 @@ export class WithdrawComponent {
       return;
     }
 
-    if (this.amount > this.balance) {
-      this.errorMessage = 'Insufficient balance!';
-      return;
-    }
-
     const userData = localStorage.getItem('atm-user');
     if (userData) {
       const user = JSON.parse(userData);
-      const userAccount = user.cardNumber;
-      const userAccountType = user.accountType;
-      this.authService.withdrawAmount(userAccount, this.amount, userAccountType).subscribe({
+      const data = { 
+      accountNumber : user.accountNumber,
+      pin: this.pin.toString(),
+      amount : this.amount
+      }
+      this.authService.withdrawAmount(data).subscribe({
         next: (message: string) => {
-
-          user.initialDeposit -= this.amount;
-          localStorage.setItem('atm-user', JSON.stringify(user));
-
-          this.balance -= this.amount;
-
+          console.log(message);
           this.router.navigate(['/dashboard/success'], { queryParams: { message: `₹${this.amount} withdrawn successfully!` } });
         },
         error: (error: any) => {

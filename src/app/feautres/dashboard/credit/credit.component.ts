@@ -12,18 +12,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class CreditComponent {
   amount: number = 0;
-  cardNumber: string = '';
-  userAccount: number = 0;
+  accountNumber: string = ''
+
+  userData : any;
 
   constructor(private authService: AuthService, private router: Router) {
-    const userData = localStorage.getItem('atm-user');
-    if (userData) {
-      const user = JSON.parse(userData);
-      this.userAccount = user.cardNumber;
-    } else {
-      alert("Please Login with your card details!")
-      this.router.navigate(['/auth/login']);
-    }
+    this.userData = JSON.parse(localStorage.getItem('atm-user') || '{}');
+    console.log(this.userData.accountNumber);
   }
 
   onCredit() {
@@ -31,16 +26,14 @@ export class CreditComponent {
       alert('Please enter a valid amount.');
       return;
     }
-
-    const userData = localStorage.getItem('atm-user');
-    if (userData) {
-      const user = JSON.parse(userData);
-
-      this.authService.creditAmount(this.userAccount, this.amount).subscribe({
+    if (this.userData) {
+     
+     const data = { 
+      accountNumber : this.userData.accountNumber,
+      amount : this.amount
+      }
+      this.authService.creditAmount(data).subscribe({
         next: (updatedUser: any) => {
-
-          user.initialDeposit += this.amount;
-          localStorage.setItem('atm-user', JSON.stringify(user));
           alert('Credit Successful!');
           this.router.navigate(['/dashboard/success'], { queryParams: { message: `₹${this.amount} credited successfully!` } });
         },

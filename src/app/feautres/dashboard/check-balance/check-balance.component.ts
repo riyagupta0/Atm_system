@@ -18,12 +18,12 @@ export class CheckBalanceComponent implements OnInit {
     const userData = localStorage.getItem('atm-user');
     if (userData) {
       const user = JSON.parse(userData);
-      const userAccount = user.cardNumber;
+      const userAccount = user.accountNumber;
 
       // Call the backend to get the balance using the user's ID
       this.authService.checkBalance(userAccount).subscribe({
-        next: (balance: number) => {
-          this.balance = balance; // Set the balance received from API
+        next: (response : any) => {
+          this.balance = response.balance;// Set the balance received from API
         },
         error: (error: any) => {
           console.error(error);
